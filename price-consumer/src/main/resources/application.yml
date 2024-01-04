@@ -1,0 +1,15 @@
+spring:
+  kafka:
+    bootstrap-servers: Chrisbees:9092
+    consumer:
+#      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: "user-id"
+      properties:
+        spring.json.trusted.packages: '*'
+  application:
+    name: price-consumer
+
+server:
+  port: 8082

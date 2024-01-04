@@ -1,0 +1,11 @@
+spring:
+  kafka:
+    bootstrap-servers: Chrisbees:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+  application:
+    name: price-updates
+
+server:
+  port: 8081

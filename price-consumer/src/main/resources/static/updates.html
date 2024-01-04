@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kafka Price Updates</title>
+</head>
+<body>
+
+<h1>Kafka Price Updates</h1>
+<ul id="updatesList">
+  <li>Gionee: $<span id="updatesforGionee" style="color: cornflowerblue">0.00</span></li>
+  <li>Apple: $<span id="updatesforApple" style="color: cornflowerblue">0.00</span></li>
+  <li>Infinix: $<span id="updatesforInfinix" style="color: cornflowerblue">0.00</span></li>
+</ul>
+
+
+<script>
+  var socket = new WebSocket('ws:/localhost:9001/websocket');
+
+  socket.addEventListener('open', function (event) {
+    console.log('WebSocket connected');
+  });
+
+  socket.addEventListener('message', function (event) {
+    var updates = JSON.parse(event.data);
+    var productList = updates.productList;
+
+    productList.map(function (update) {
+      displayUpdate(update);
+    });
+  });
+
+  function displayUpdate(update) {
+    if (update.name === "Infinix") {
+      document.getElementById('updatesforInfinix').innerHTML = update.price.toFixed(2);
+    } else if (update.name === "Apple") {
+      document.getElementById('updatesforApple').innerHTML = update.price.toFixed(2);
+    } else if (update.name === "Gionee") {
+      document.getElementById('updatesforGionee').innerHTML = update.price.toFixed(2);
+    }
+  }
+</script>
+
+</body>
+</html>
